@@ -3,10 +3,10 @@
 class Router {
 
     public static function run() {
-        $r = isset($_GET["r"]) ? $_GET["r"] : 'AppTopCategoryController';
-        $action = isset($_GET["action"]) ? $_GET["action"] : 'read';
+        $r = isset($_GET["r"]) ? $_GET["r"] : 'AppTopCategory';
+        $action = isset($_GET["action"]) ? $_GET["action"] : 'AppTopCategory';
 
-        $name_controller = __NAMESPACE__.'\Controllers\\'.$r.'Controller';
+        $name_controller = 'apptica\apptica\Controllers\\'.$r.'Controller';
         $controller = new $name_controller;
         $controller->$action();
 

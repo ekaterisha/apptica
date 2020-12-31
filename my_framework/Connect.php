@@ -2,6 +2,7 @@
 
 class Connect {
     protected static $mysqli;
+    public static $error;
 
     protected static function mysqli($mysql_statement){
         if (!isset(self::$mysqli)){
@@ -18,10 +19,15 @@ class Connect {
                 }
                 $result->close();
                 $mysqli->next_result();
+                self::$error = 0;
                 return $arr;
+            } else {
+                self::$error = 1;
+                exit;
             }
         } else {
-            echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+            self::$error = 1;
+            // echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
             exit;
         }
     }
