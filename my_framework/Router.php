@@ -5,7 +5,7 @@ class Router {
     public static function run() {
         $controller = trim(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH), "/");
 
-        $name_controller = 'apptica\apptica\Controllers\\'.$controller.'Controller';
+        $name_controller = 'apptica\apptica\Controllers\\'.ucfirst($controller).'Controller';
         $file_path = __DIR__
             .DIRECTORY_SEPARATOR
             .'..'
