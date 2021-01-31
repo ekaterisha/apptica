@@ -23,8 +23,11 @@ use apptica\apptica\Models\PreparedDataModel;
                 $dateTo = $_POST['date_to'];
                 $hash_key = 'B4NKGg';
                 $hash_value = 'fVN5Q9KVOlOHDx9mOsKPAQsFBlEhBOwguLkNEDTZvKzJzT3l';
-                $curl = $url . '/' . $applicationId . '/' . $countryId . '?date_from=' . $dateFrom . '&date_to=' . $dateTo . '&' . $hash_key . '=' . $hash_value;
+                // $curl = $url . '/' . $applicationId . '/' . $countryId . '?date_from=' . $dateFrom . '&date_to=' . $dateTo . '&' . $hash_key . '=' . $hash_value;
+                //данные по декабрю уже не доступны, поэтому выгружаю всё, что есть (на данный момент информация за январь)
+                $curl = $url . '/' . $applicationId . '/' . $countryId;
                 $prepared = file_get_contents($curl, false);
+
                 $data = json_decode($prepared, true);
 
 
@@ -35,6 +38,7 @@ use apptica\apptica\Models\PreparedDataModel;
                         implode(',',
                             array_map(
                                 function ($k, $v) use($category) {
+                                    $v = is_null($v) ? 'NULL' : $v;
                                     return '("'.$k.'",'.$category.','.$v.')';
                                 },
                                 array_keys($result),
@@ -45,6 +49,7 @@ use apptica\apptica\Models\PreparedDataModel;
                     $result_queries[] = $str;
 
                 }
+
                 $error = PreparedDataModel::replaceData($result_queries);
 
 
