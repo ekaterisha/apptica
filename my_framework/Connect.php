@@ -6,7 +6,7 @@ class Connect {
 
     protected static function mysqli($mysql_statement){
         if (!isset(self::$mysqli)){
-            self::$mysqli = new \mysqli("127.0.0.1", "root");
+            self::$mysqli = new \mysqli("192.168.1.101", "root");
             self::$mysqli->set_charset("utf8");
         }
         $mysqli = self::$mysqli;
